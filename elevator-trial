@@ -1,0 +1,53 @@
+#include <iostream>// Used for the output
+#include <cstdlib>// Used for clearing the screen
+#include<string>
+#include<cmath>
+#include<vector>
+#include<algorithm>
+#include<cctype>
+#include <queue>
+using namespace std;
+
+const int TopFloor = 4;// The top floor in your program
+
+// This is the start of our program
+int main() {// Look up
+    queue<int> requests;
+    int input;
+    int DesiredFloor = 1;// The floor that the user wants to go to
+    int CurrentFloor = 1;// The floor that the user is already on
+    cout << "You are on floor " << CurrentFloor;// Output the floor that the user is on
+    do{
+        cout << ", what floor would you like to go to (enter 0 to stop input): ";// Ask what floor the user wants to go to
+        cin >> input;// Put that value into the DesiredFloor
+        if ((DesiredFloor < 1) || (DesiredFloor > TopFloor)) {// Make sure that value is allowed
+            cout << "That floor in not available!" << endl;// Report the error
+            system("pause");// Wait for the user to see what is on the screen
+            break;// Leave the loop
+        }// End of If statement
+        requests.push(input);  // push to queue
+    }while(input != 0);
+    while(!requests.empty() && requests.front() != 0){
+        DesiredFloor = requests.front();
+        cout << "Going to floor " << requests.front() << endl;
+        if(DesiredFloor < CurrentFloor) {// If we need to go down
+            while(DesiredFloor != CurrentFloor) {// while we are not on that floor
+                cout << "Going Down" << endl;// We are going down
+                CurrentFloor--;// Subtract one from the current floor
+                cout << "We are on floor " << CurrentFloor << endl;// Say what floor we are on
+            }// End of while Loop
+        } else if(DesiredFloor > CurrentFloor) {// If we need to go up
+            while(DesiredFloor != CurrentFloor) {// while we are not on that floor
+                cout << "Going Up" << endl;// We are going down
+                CurrentFloor++;// Add one to the current floor
+                cout << "We are on floor " << CurrentFloor << endl;// Say what floor we are on
+            }// End of while Loop
+        } else {// If we are already on thae floor that the user wants to be on
+            cout << "We are already there" << endl;
+            requests.pop();
+        }// End of If statement
+        cout << "At rest on floor " << CurrentFloor << endl;// Say what floor we are on
+        //system("pause");// Wait for the user to see what is on the screen
+        //system("cls");// Clear the screen
+    }// End of While loop
+}// End of the program
